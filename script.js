@@ -94,16 +94,23 @@
     const cheer = document.getElementById('cheer-btn');
     const replay = document.getElementById('replay-btn');
 
-    cheer.addEventListener('click', ()=>{
-      // energetic pop animation on headline
-      const h = document.querySelector('.headline');
-      h.animate([{transform:'scale(1)'},{transform:'scale(1.12)'},{transform:'scale(1)'}],{duration:540,easing:'cubic-bezier(.25,.9,.3,1)'});
-      // big confetti burst
-      spawn(360);
-      setTimeout(()=>spawn(80), 1600);
-    });
+    // if buttons are not present (user removed them), do not attach listeners
+    if (cheer) {
+      cheer.addEventListener('click', ()=>{
+        // energetic pop animation on headline
+        const h = document.querySelector('.headline');
+        if (h && h.animate) {
+          h.animate([{transform:'scale(1)'},{transform:'scale(1.12)'},{transform:'scale(1)'}],{duration:540,easing:'cubic-bezier(.25,.9,.3,1)'});
+        }
+        // big confetti burst
+        spawn(360);
+        setTimeout(()=>spawn(80), 1600);
+      });
+    }
 
-    replay.addEventListener('click', ()=>{ spawn(200); });
+    if (replay) {
+      replay.addEventListener('click', ()=>{ spawn(200); });
+    }
 
     // allow the user to set a name by clicking headline
     nameEl.addEventListener('click', ()=>{
