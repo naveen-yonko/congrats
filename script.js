@@ -16,7 +16,11 @@
       this.y = rand(-H, 0);
       this.w = rand(6, 12);
       this.h = rand(8, 16);
-      this.color = `hsl(${~~rand(0,360)}, 90%, 60%)`;
+      // brighter palette
+      const palettes = [
+        '#ff416c','#ff8b00','#ffd200','#00e0ff','#7bff6f','#ff3cac'
+      ];
+      this.color = palettes[~~rand(0,palettes.length)];
       this.vx = rand(-1.2, 1.2);
       this.vy = rand(1, 4);
       this.rot = rand(0, Math.PI*2);
@@ -57,25 +61,51 @@
 
   // controls
   document.addEventListener('DOMContentLoaded', ()=>{
-    spawn(140);
+    // default personalized name
+    const nameEl = document.getElementById('name');
+    if(!nameEl.textContent.trim()) nameEl.textContent = 'Ganga Shree Mae';
+
+    // quotes to show
+    const quotes = [
+      "Believe in yourself — every step forward counts.",
+      "Dream big, work hard, stay humble.",
+      "Your spark can light up someone's world.",
+      "Courage today creates strength for tomorrow.",
+      "Small wins lead to big victories — keep going.",
+      "You are capable of amazing things."
+    ];
+
+    const quoteEl = document.getElementById('quote');
+    let qi = 0;
+    function showQuote(i){
+      quoteEl.classList.remove('show');
+      setTimeout(()=>{
+        quoteEl.textContent = '"' + quotes[i] + '"';
+        quoteEl.classList.add('show');
+      }, 300);
+    }
+
+    showQuote(qi);
+    const quoteInterval = setInterval(()=>{ qi = (qi+1)%quotes.length; showQuote(qi); }, 4500);
+
+    spawn(160);
     loop();
 
     const cheer = document.getElementById('cheer-btn');
     const replay = document.getElementById('replay-btn');
-    const nameEl = document.getElementById('name');
 
     cheer.addEventListener('click', ()=>{
-      // small pop animation on headline
+      // energetic pop animation on headline
       const h = document.querySelector('.headline');
-      h.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:500,easing:'cubic-bezier(.2,.9,.3,1)'});
-      // boost confetti
-      spawn(240);
-      setTimeout(()=>spawn(80), 1200);
+      h.animate([{transform:'scale(1)'},{transform:'scale(1.12)'},{transform:'scale(1)'}],{duration:540,easing:'cubic-bezier(.25,.9,.3,1)'});
+      // big confetti burst
+      spawn(360);
+      setTimeout(()=>spawn(80), 1600);
     });
 
-    replay.addEventListener('click', ()=>{ spawn(160); });
+    replay.addEventListener('click', ()=>{ spawn(200); });
 
-    // small UX: allow the user to set a name by clicking headline
+    // allow the user to set a name by clicking headline
     nameEl.addEventListener('click', ()=>{
       const name = prompt('Enter your friend\'s name', nameEl.textContent) || nameEl.textContent;
       nameEl.textContent = name;

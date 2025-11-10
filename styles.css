@@ -1,9 +1,12 @@
+.root-bg{
+  position:fixed;inset:0;z-index:0;filter:blur(32px);opacity:0.6;pointer-events:none;background:linear-gradient(120deg,#ff416c,#ff8b00 30%,#00c6ff 60%)}
 :root{
-  --bg1: #0f172a;
-  --bg2: #0b3c5d;
+  --bg1: #0b1220;
+  --bg2: #081028;
   --card: rgba(255,255,255,0.06);
-  --accent: #ff8a00;
-  --accent-2: #ff3cac;
+  --accent: #ff416c;
+  --accent-2: #ffd200;
+  --accent-3: #00e0ff;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -30,20 +33,27 @@ body{
   margin:0;
   font-family: 'Playfair Display', serif;
   font-weight:900;
-  font-size:clamp(2rem, 6vw, 4.5rem);
+  font-size:clamp(2rem, 6vw, 4.8rem);
   line-height:1;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   transform-origin:center;
-  animation: pop 1s cubic-bezier(.2,.9,.3,1) both;
+  animation: pop 900ms cubic-bezier(.2,.9,.3,1) both, hue 6s linear infinite;
+  text-shadow: 0 6px 20px rgba(0,0,0,0.35);
 }
 
-.sub{margin:0.75rem 0 1.5rem;color:rgba(255,255,255,0.85);font-size:1.125rem}
+@keyframes hue{0%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(20deg)}100%{filter:hue-rotate(0deg)}}
+
+.sub{margin:0.75rem 0 1rem;color:rgba(255,255,255,0.95);font-size:1.125rem}
+
+.quote-wrap{margin-top:0.65rem}
+.quote{font-size:1.05rem;margin:0;color:rgba(255,255,255,0.95);font-weight:600;opacity:0;transform:translateY(6px);transition:opacity .4s ease, transform .4s ease;text-shadow:0 6px 18px rgba(0,0,0,0.45)}
+.quote.show{opacity:1;transform:translateY(0)}
 
 .controls{display:flex;gap:1rem;justify-content:center}
-.btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;padding:0.75rem 1.2rem;border-radius:999px;color:#081224;font-weight:600;cursor:pointer;box-shadow:0 6px 18px rgba(255,138,0,0.12);transition:transform .18s ease, box-shadow .18s ease}
+.btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;padding:0.75rem 1.2rem;border-radius:999px;color:#081224;font-weight:700;cursor:pointer;box-shadow:0 10px 28px rgba(255,65,108,0.14);transition:transform .18s ease, box-shadow .18s ease, transform .18s cubic-bezier(.2,.9,.3,1)}
 .btn:active{transform:translateY(2px)}
 .btn.alt{background:transparent;border:1px solid rgba(255,255,255,0.08);color:#fff}
 
@@ -51,10 +61,11 @@ body{
 
 @keyframes pop{0%{transform:translateY(18px) scale(.98);opacity:0}60%{transform:translateY(-6px) scale(1.02);opacity:1}100%{transform:translateY(0) scale(1)}}
 
-/* small sparkle effect */
 .card::after{
-  content:'';position:absolute;pointer-events:none;inset:0;border-radius:18px;background:radial-gradient(ellipse at 10% 10%, rgba(255,255,255,0.03), transparent 10%);
+  content:'';position:absolute;pointer-events:none;inset:0;border-radius:18px;background:radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,0.03), transparent 10%);
 }
+
+.vibrant-bg{position:fixed;inset:-20%;z-index: -1;filter:blur(80px);opacity:0.8;pointer-events:none;background:conic-gradient(from 160deg at 50% 50%, #ff416c, #ff8b00, #ffd200, #00e0ff, #8a2be2)}
 
 /* Responsive spacing */
 @media (max-width:520px){.card{padding:1.5rem}}
