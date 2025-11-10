@@ -65,28 +65,27 @@
     const nameEl = document.getElementById('name');
     if(!nameEl.textContent.trim()) nameEl.textContent = 'Ganga Shree Mae';
 
-    // quotes to show
-    const quotes = [
-      "Believe in yourself — every step forward counts.",
-      "Dream big, work hard, stay humble.",
-      "Your spark can light up someone's world.",
-      "Courage today creates strength for tomorrow.",
-      "Small wins lead to big victories — keep going.",
-      "You are capable of amazing things."
-    ];
-
+    // quotes are optional — only run rotation if the element exists
     const quoteEl = document.getElementById('quote');
-    let qi = 0;
-    function showQuote(i){
-      quoteEl.classList.remove('show');
-      setTimeout(()=>{
-        quoteEl.textContent = '"' + quotes[i] + '"';
-        quoteEl.classList.add('show');
-      }, 300);
-    }
+    if (quoteEl) {
+      const quotes = [
+        "Believe in yourself — every step forward counts.",
+        "Your spark can light up someone's world.",
+        "You are capable of amazing things."
+      ];
 
-    showQuote(qi);
-    const quoteInterval = setInterval(()=>{ qi = (qi+1)%quotes.length; showQuote(qi); }, 4500);
+      let qi = 0;
+      function showQuote(i){
+        quoteEl.classList.remove('show');
+        setTimeout(()=>{
+          quoteEl.textContent = '"' + quotes[i] + '"';
+          quoteEl.classList.add('show');
+        }, 300);
+      }
+
+      showQuote(qi);
+      const quoteInterval = setInterval(()=>{ qi = (qi+1)%quotes.length; showQuote(qi); }, 4500);
+    }
 
     spawn(160);
     loop();
